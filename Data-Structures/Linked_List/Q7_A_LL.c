@@ -88,6 +88,22 @@ int main()
 void RecursiveReverse(ListNode **ptrHead)
 {
 	/* add your code here */
+
+	ListNode *first, *rest;
+
+	if (ptrHead == NULL || *ptrHead == NULL || (*ptrHead)->next == NULL) {
+		return;
+	}
+
+	first = *ptrHead;
+	rest = (*ptrHead)->next;
+
+	RecursiveReverse(&rest);
+
+	first->next->next = first; // rest->next = first; 하면 안되는게, rest는 이미 마지막 노드로 바뀐 상태임.
+	first->next = NULL;
+	*ptrHead = rest;
+	return;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
