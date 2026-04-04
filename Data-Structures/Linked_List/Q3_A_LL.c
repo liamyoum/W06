@@ -87,6 +87,68 @@ int main()
 void moveOddItemsToBack(LinkedList *ll)
 {
 	/* add your code here */
+	// if (ll == NULL || ll->head == NULL) {
+	// 	return;
+	// }
+
+	// ListNode *cur = ll->head;
+	// int size_ll = ll->size;
+	// int idx = 0;
+	
+	// for (int i = 0; i < size_ll; i++) {
+	// 	if (cur->item % 2 == 1) {
+	// 		insertNode(ll, size_ll, cur->item);
+	// 		cur = cur->next;
+	// 		removeNode(ll, idx);
+	// 	}
+	// 	else {
+	// 		cur = cur->next;
+	// 		idx++;
+	// 	}
+	// }
+
+	if (ll == NULL || ll->head == NULL) {
+		return;
+	}
+
+	ListNode *cur = ll->head;
+	ListNode *nextNode;
+	ListNode *evenHead = NULL, *evenTail = NULL;
+	ListNode *oddHead = NULL, *oddTail = NULL;
+	while (cur != NULL) {
+		nextNode = cur->next;
+		cur->next = NULL; // 연결 끊어주고 새로 붙여야하는 것 기억하기
+
+		if (cur->item % 2 == 0) {
+			if (evenHead == NULL) {
+				evenHead = cur;
+				evenTail = cur;
+			}
+			else {
+				evenTail->next = cur; // 짝수 chain에 현재 노드 연결
+				evenTail = cur; // 짝수 chain의 tail은 이제 현재 노드
+			}
+		}
+		else {
+			if (oddHead == NULL) {
+				oddHead = cur;
+				oddTail = cur;
+			}
+			else {
+				oddTail->next = cur;
+				oddTail= cur;
+			}
+		}
+		cur = nextNode;
+	}
+
+	if (evenHead == NULL) {
+		ll->head = oddHead;
+	}
+	else {
+		evenTail->next = oddHead;
+		ll->head = evenHead;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
