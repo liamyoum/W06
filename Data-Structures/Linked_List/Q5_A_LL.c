@@ -38,7 +38,7 @@ int removeNode(LinkedList *ll, int index);
 
 int main()
 {
-	int c, i;
+	int c = -1, i;
 	LinkedList ll;
 	LinkedList resultFrontList, resultBackList;
 
@@ -60,7 +60,7 @@ int main()
 
 	while (c != 0)
 	{
-	    printf("Please input your choice(1/2/0): ");
+	  printf("Please input your choice(1/2/0): ");
 		scanf("%d", &c);
 
 		switch (c)
@@ -103,7 +103,61 @@ int main()
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
 	/* add your code here */
+	if (ll == NULL || ll->size == 0) {
+		return;
+	}
+
+	if (ll->size == 1) {
+		resultFrontList->head = ll->head;
+		resultFrontList->size = 1;
+		return;
+	}
+
+	int frontSize = (ll->size + 1) / 2; // 짝수일 경우 어차피 size 그대로 2로 나눈 것과 똑같고, 홀수를 위해 +1 처리 해준 것. 홀수일 때 front에 extra node가 들어가야함.
+	int backSize = ll->size - frontSize;
+
+	ListNode *frontTail = ll->head;
+	ListNode *backHead;
+
+	for (int i = 0; i < frontSize - 1; i++) {
+		frontTail = frontTail->next;
+	}
+
+	backHead = frontTail->next;
+	frontTail->next = NULL;
+	resultFrontList->head = ll->head;
+	resultBackList->head = backHead;
+	resultFrontList->size = frontSize;
+	resultBackList->size = backSize;
+	
+	return;
+
+	// 아래는 slow, fast two pointers 풀이
+	// if (ll == NULL || ll->size == 0) {
+	//  	return;
+	// }
+
+	// if (ll->size == 1) {
+	// 	(*resultFrontList).head = (*ll).head;
+	// 	(*resultFrontList).size = 1;
+	// 	return;
+	// }
+
+	// ListNode *slow = ll->head;
+	// ListNode *fast = ll->head;
+
+	// while (fast->next != NULL && fast->next->next != NULL) {
+	// 	slow = slow->next;
+	// 	fast = fast->next->next;
+	// }
+
+	// (*resultFrontList).head = (*ll).head;
+	// (*resultFrontList).size = ((*ll).size + 1) / 2;
+	// (*resultBackList).head = slow->next;
+	// (*resultBackList).head = ((*ll).size - (*resultFrontList).size);
+	// slow->next = NULL;
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 
