@@ -102,9 +102,39 @@ int main()
 }
 
 ////////////////////////////////////////////////////////////
-int balanced(char *expression)
-{
-/* add your code here */
+int balanced(char *expression) {
+	/* add your code here */
+	// 괄호 여닫는게 짝이 맞는지 확인
+	Stack s;
+	s.ll.head = NULL;
+	s.ll.size = 0;
+
+	int i = 0;
+	while (expression[i] != '\0') {
+		if (expression[i] == '[' || expression[i] == '(' || expression[i] == '{') {
+			push(&s, expression[i]);
+		}
+		
+		else {
+			if (isEmptyStack(&s)) {
+				return 1;
+			}
+
+			if ((expression[i] == ')' && peek(&s) != '(') ||
+					(expression[i] == '}' && peek(&s) != '{') ||
+					(expression[i] == ']' && peek(&s) != '[')) {
+						return 1;
+			}
+			pop(&s);
+		}
+		i++;
+	}
+	if (isEmptyStack(&s)) {
+		return 0;
+	}
+	else {
+		return 1;
+	}
 }
 
 ////////////////////////////////////////////////////////////
