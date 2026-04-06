@@ -113,6 +113,29 @@ int main()
 void reverse(Queue *q)
 {
 /* add your code here */
+// 스택을 이용해서 큐 뒤집기
+// 스택은 push랑 pop만 쓰고, 큐는 enqueue랑 dequeue만 사용
+// 처음에 스택이 비지 않았으면 비워라
+
+if (q == NULL) {
+	return;
+}
+
+Stack s;
+s.ll.head = NULL;
+s.ll.size = 0;
+
+int q_size = q->ll.size;
+
+for (int i = 0; i < q_size; i++) {
+	push(&s, dequeue(q));
+}
+
+for (int i = 0; i < q_size; i++) {
+	enqueue(q, pop(&s));
+}
+
+return;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
