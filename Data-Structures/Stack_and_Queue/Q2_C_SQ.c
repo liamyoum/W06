@@ -118,7 +118,7 @@ void createStackFromLinkedList(LinkedList *ll, Stack *s)
 		return;
 	}
 
-	if (isEmptyStack == 0) {
+	if (!isEmptyStack(s)) {
 		removeAllItemsFromStack(s);
 	}
 

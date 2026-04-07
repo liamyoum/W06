@@ -111,7 +111,21 @@ int main()
 
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
+	/* add your code here */
+	// value 값이 나오기 전까지 전부 다 pop 하기
+
+	if (s == NULL || s->ll.size == 0) {
+		return;
+	}
+
+	while (s->ll.size != 0) {
+		if (peek(s) == value) {
+			break;
+		}
+		pop(s);
+	}
+
+	return;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
