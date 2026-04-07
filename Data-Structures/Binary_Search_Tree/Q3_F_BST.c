@@ -92,6 +92,26 @@ int main()
 void preOrderIterative(BSTNode *root)
 {
 	 /* add your code here */
+	 Stack s;
+	 s.top = NULL;
+
+	 if (root == NULL) {
+		return;
+	 }
+
+	 push(&s, root);
+
+	 while (!isEmpty(&s)) {
+		BSTNode *node = pop(&s);
+		printf("%i ", node->item);
+		// 오른쪽 노드가 먼저 stack에 들어가야, LIFO 이기 때문에 나중에 처리됨.
+		if (node->right != NULL) {
+			push(&s, node->right);
+		}
+		if (node->left != NULL) {
+			push(&s, node->left);
+		}
+	 }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
